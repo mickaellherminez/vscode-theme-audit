@@ -195,6 +195,42 @@ The [CI workflow](.github/workflows/ci.yml) runs them on every push and pull req
 
 The [CodeQL workflow](.github/workflows/codeql.yml) looks for security problems in the TypeScript code and in the workflows, on every pull request to `main`, on `main` and every Monday. Its results are in the Security tab.
 
+## Releases
+
+Versions are published to npm only by the [release workflow](.github/workflows/release.yml), when a version tag is pushed. npm authenticates the workflow with OpenID Connect ([trusted publishing](https://docs.npmjs.com/trusted-publishers)): no npm token is stored in the repository. npm publishes the [provenance](https://docs.npmjs.com/generating-provenance-statements) of each version with it, which links the package to the workflow run and the commit it was built from; the npm page of the package shows it. `publishConfig` in `package.json` makes the package public and asks for this provenance.
+
+To release a version:
+
+1. **A pull request for the release**, from a branch such as `release/0.1.0`. It changes the version with `npm version 0.1.0 --no-git-tag-version`, which writes `package.json` and `package-lock.json`. In the CHANGELOG, it renames `## [Unreleased]` to `## [0.1.0] - YYYY-MM-DD`, with the day of the release, and adds an empty `## [Unreleased]` above it. It also updates what the README says about the published version. Merge it once the CI passes.
+2. **The tag**, on the merged commit of `main`:
+
+   ```sh
+   git switch main && git pull --ff-only
+   git tag -a v0.1.0 -m "0.1.0"
+   git push origin v0.1.0
+   ```
+
+3. **The workflow** then runs, in the `npm` environment of the repository. It checks that the tag is on `main` and names the version of `package.json`, and that npm is recent enough for trusted publishing (11.5.1 or later). It then runs `npm run check` and publishes to npm. Last, it creates the GitHub release, whose notes are the section of the CHANGELOG for that version (`scripts/release-notes.ts`). A failed step stops the release before anything is published, except the GitHub release, which comes last: if it fails, run its command again from the workflow file.
+4. **Check** the npm page of the version, which shows its provenance, and the published package: `npx vscode-theme-audit@0.1.0 --version`.
+
+Only release versions (`v1.2.3`) start the workflow: a prerelease would need its own npm dist-tag, which the workflow does not set.
+
+### The first version
+
+npm can configure a trusted publisher only for a package that already exists. The first version, 0.1.0, is therefore published once with a short-lived token, by the same workflow, so that it still has its provenance:
+
+1. On npmjs.com, **Access Tokens**, **Generate New Token**: a granular access token with the permission *Read and write (publish and stage)* on *All Packages* (the package does not exist yet), *Bypass two-factor authentication* checked (the workflow cannot type a code), and the shortest expiration (1 day).
+2. On GitHub, in the settings of the repository, **Environments**, `npm`: a secret `NPM_TOKEN` with this token. The workflow gives it to npm as `NODE_AUTH_TOKEN`.
+3. Push the tag `v0.1.0`, as above.
+4. Once 0.1.0 is on npm: in the settings of the package on npmjs.com, **Trusted Publisher**, GitHub Actions, with the user `mickaellherminez`, the repository `vscode-theme-audit`, the workflow `release.yml` and the environment `npm`. In **Publishing access**, choose *Require two-factor authentication and disallow tokens*.
+5. Delete the secret `NPM_TOKEN` on GitHub and the token on npmjs.com.
+
+From then on, the workflow publishes without a token. npm checks the configuration only when it publishes: the next release shows whether it is right.
+
+### Going back
+
+npm never allows a version number to be used again, even after it is removed. To withdraw a version, publish a fixed one, then mark the bad one with `npm deprecate vscode-theme-audit@<version> "<reason>"`: npm warns whoever installs it. `npm unpublish vscode-theme-audit@<version>` removes it only under the [conditions of npm](https://docs.npmjs.com/policies/unpublish), such as within 72 hours of its publication. A GitHub release can be deleted with `gh release delete v<version>`, and its tag with `git push origin --delete v<version>`. A tag pushed by mistake, before the workflow publishes, can be stopped by cancelling the workflow run.
+
 ## Documentation
 
 | File | For | Content |

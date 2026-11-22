@@ -1,0 +1,67 @@
+# Publishes the package to npm when a version tag (v0.1.0...) is pushed, then creates the GitHub release with the
+# notes of the CHANGELOG. npm authenticates the workflow with OpenID Connect (trusted publishing): no token is
+# stored. The provenance of each version, which links it to this workflow and commit, is published with it.
+# The steps are described in CONTRIBUTING.md, "Releases".
+
+name: Release
+
+on:
+  push:
+    tags:
+      # A release version only: a prerelease (v0.2.0-beta.1) would need its own npm dist-tag
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    # The npm trusted publisher names this environment: only this job can publish
+    environment: npm
+    permissions:
+      # The GitHub release
+      contents: write
+      # OpenID Connect: trusted publishing and provenance
+      id-token: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # The whole history, to check that the tag is on main
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+
+      - name: The tag is on main and names the version of package.json
+        run: |
+          git merge-base --is-ancestor "$GITHUB_SHA" origin/main || { echo "::error::$GITHUB_REF_NAME is not on main"; exit 1; }
+          version="v$(node -p "require('./package.json').version")"
+          [ "$version" = "$GITHUB_REF_NAME" ] || { echo "::error::The tag $GITHUB_REF_NAME does not match package.json ($version)"; exit 1; }
+
+      - name: npm supports trusted publishing (11.5.1 or later)
+        run: |
+          npm --version
+          node -e "const [a, b, c] = process.argv[1].split('.').map(Number); process.exit(a > 11 || (a === 11 && (b > 5 || (b === 5 && c >= 1))) ? 0 : 1)" "$(npm --version)"
+
+      - run: npm ci
+
+      - name: Checks
+        run: npm run check
+
+      - name: Release notes
+        run: node scripts/release-notes.ts "${GITHUB_REF_NAME#v}" > "$RUNNER_TEMP/notes.md"
+
+      - name: Publish to npm
+        # With trusted publishing, npm needs no token. NPM_TOKEN served once, for the first version, published before
+        # the package existed on npm and could have a trusted publisher; it is then deleted.
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: GitHub release
+        run: gh release create "$GITHUB_REF_NAME" --verify-tag --title "$GITHUB_REF_NAME" --notes-file "$RUNNER_TEMP/notes.md"
+        env:
+          GH_TOKEN: ${{ github.token }}

@@ -1,18 +1,22 @@
 {
   "name": "vscode-theme-audit",
   "version": "0.0.0",
-  "private": true,
   "description": "Accessibility audit for VS Code color themes: WCAG contrast and color blindness simulations, for theme authors and CI.",
   "keywords": [
     "vscode",
+    "vscodium",
+    "open-vsx",
     "theme",
     "color-theme",
+    "vscode-theme",
     "accessibility",
     "a11y",
     "wcag",
     "contrast",
     "color-blindness",
-    "open-vsx"
+    "colorblind",
+    "cli",
+    "ci"
   ],
   "license": "MIT",
   "author": "Mickaël Lherminez (https://mickaellherminez.net)",
@@ -20,7 +24,9 @@
     "type": "git",
     "url": "git+https://github.com/mickaellherminez/vscode-theme-audit.git"
   },
-  "bugs": "https://github.com/mickaellherminez/vscode-theme-audit/issues",
+  "bugs": {
+    "url": "https://github.com/mickaellherminez/vscode-theme-audit/issues"
+  },
   "homepage": "https://github.com/mickaellherminez/vscode-theme-audit#readme",
   "type": "module",
   "bin": {
@@ -35,6 +41,10 @@
   ],
   "engines": {
     "node": ">=22.18"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
