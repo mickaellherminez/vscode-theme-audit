@@ -353,6 +353,12 @@ Before version 1.0.0, the API can change in any release, as [Semantic Versioning
 - **Colors of the theme, not choices made in the code of a view.** When a key has no color, some views choose another one in their own code: the terminal, for example, takes the background of the panel when `terminal.background` has none. The audit gives the color of the key, except for the terminal and the notebook cells, whose replacement it follows.
 - **Colors, not rendering.** The audit reads the theme files. It does not look at a rendered window, antialiasing or a display. Its token colors were checked against the editor of VS Code itself on five themes (see [CONTRIBUTING](CONTRIBUTING.md#checked-in-the-editor-of-vs-code)).
 
+## Pilot with theme authors
+
+The [pilot](https://github.com/mickaellherminez/vscode-theme-audit/issues/19) is recruiting 3 to 10 theme authors. Each participant receives their own report privately and answers the same questions about correctness, clarity, CI use and missing features. The public summary will contain aggregated findings only, without identifying individual themes or authors.
+
+See the [pilot protocol](docs/pilot.md) for the questions, reproducible reports and completion criteria. At least three distinct authors must provide feedback before the pilot can be completed; running the corpus alone does not meet that requirement.
+
 ## Uninstall
 
 | Installed with | Remove with |
