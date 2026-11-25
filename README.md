@@ -1,4 +1,9 @@
-# vscode-theme-audit
+<h1 align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset=".github/assets/readme-banner-dark.svg">
+    <img src=".github/assets/readme-banner-light.svg" alt="vscode-theme-audit: accessibility audit for Visual Studio Code color themes" width="640">
+  </picture>
+</h1>
 
 [![npm version](https://img.shields.io/npm/v/vscode-theme-audit)](https://www.npmjs.com/package/vscode-theme-audit)
 
