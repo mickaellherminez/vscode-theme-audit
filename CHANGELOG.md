@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 ## [Unreleased]
 
 ### Added
-- A pilot protocol with a draft invitation, four shared feedback questions, reproducible private reports, aggregation and decision criteria, and withdrawal instructions. It prepares feedback from 3 to 10 theme authors; it does not establish participant feedback or pilot results ([#19](https://github.com/mickaellherminez/vscode-theme-audit/issues/19)).
+- A pilot protocol with the invitation sent to theme maintainers, four shared feedback questions, reproducible private reports, aggregation and decision criteria, and withdrawal instructions. It prepares feedback from 3 to 10 theme authors; it does not establish participant feedback or pilot results ([#19](https://github.com/mickaellherminez/vscode-theme-audit/issues/19)).
 
 ## [0.2.0] - 2026-11-24
 
