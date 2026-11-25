@@ -2,9 +2,9 @@
 
 [![npm version](https://img.shields.io/npm/v/vscode-theme-audit)](https://www.npmjs.com/package/vscode-theme-audit)
 
-Accessibility audit for VS Code color themes, for theme authors and their CI: WCAG contrast of the text and the code, and color pairs that must stay distinct with color blindness simulations.
+Accessibility audit for Visual Studio Code color themes, for theme authors and their CI: WCAG contrast of the text and the code, and color pairs that must stay distinct with color blindness simulations.
 
-> **Status: early releases (0.2).** Version 0.2.0 adds `.vsix` and Open VSX inputs, configuration, Markdown reports and a GitHub Action ([milestones](https://github.com/mickaellherminez/vscode-theme-audit/milestones)).
+> **Status: early releases (0.2).** Version 0.2.0 adds `.vsix` and Eclipse Open VSX™ inputs, configuration, Markdown reports and a GitHub Action ([milestones](https://github.com/mickaellherminez/vscode-theme-audit/milestones)).
 
 These documents describe version **0.2.0**. If npm does not serve this version yet, run the [sources](#from-the-sources) to try the command; the versioned npm examples below become available when 0.2.0 is published. The action workflows in this repository demonstrate its GitHub Action independently of npm publication.
 
@@ -12,7 +12,7 @@ These documents describe version **0.2.0**. If npm does not serve this version y
 
 The audit was first written for [365 Day & Night](https://github.com/mickaellherminez/365-daynight-vscode-theme-ext), a set of 48 VS Code themes, where it runs before each release and publishes [its report](https://github.com/mickaellherminez/365-daynight-vscode-theme-ext/blob/main/docs/AUDIT.md). That version only reads the themes of its own project. This package makes it read any VS Code color theme, the way VS Code does.
 
-The themes of the Visual Studio Marketplace and of [Open VSX](https://open-vsx.org/) use the same format, so the audit also covers the editors that use Open VSX, such as VSCodium, Cursor or Gitpod.
+The themes of the Visual Studio Marketplace and of [Eclipse Open VSX™](https://open-vsx.org/) use the same format, so the audit also covers the editors that use Open VSX, such as VSCodium, Cursor or Gitpod.
 
 ## Quick start
 
@@ -387,3 +387,13 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 ## License
 
 [MIT](LICENSE). Parts ported from Visual Studio Code, vscode-textmate and xterm.js keep their MIT notices: see [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
+
+## Trademarks
+
+An independent project by Mickaël Lherminez.
+
+Visual Studio, Visual Studio Code, and VS Code are trademarks of Microsoft Corporation.
+
+npm is a registered trademark of npm, Inc.
+
+Eclipse Open VSX™ is a trademark of Eclipse Foundation AISBL.

@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ### Added
 - A pilot protocol with the invitation sent to theme maintainers, four shared feedback questions, reproducible private reports, aggregation and decision criteria, and withdrawal instructions. It prepares feedback from 3 to 10 theme authors; it does not establish participant feedback or pilot results ([#19](https://github.com/mickaellherminez/vscode-theme-audit/issues/19)).
+- The README names its author and attributes the Microsoft, npm and Eclipse Open VSX trademarks it uses, in a `Trademarks` section after the license. Its first sentence names Visual Studio Code in full, and its first and most prominent mentions of Open VSX read "Eclipse Open VSX™" ([#39](https://github.com/mickaellherminez/vscode-theme-audit/issues/39)).
 
 ## [0.2.0] - 2026-11-24
 

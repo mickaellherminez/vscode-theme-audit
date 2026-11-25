@@ -296,6 +296,8 @@ npm never allows a version number to be used again, even after it is removed. To
 
 The examples of the README and of `docs/` are real outputs of the command on the test themes of `test/data/oracle-extension/`: after a change of the checks or of the report, run the command again and update them. The README is published on npm with the package, and links to the other files of the repository.
 
+The last section of the README, `Trademarks`, names the author and attributes the trademarks of other owners that the README uses. When the README starts naming another product, add its attribution there, in the wording that its owner publishes, as a paragraph of its own, and follow any rule of that owner for the text itself (the README writes "Eclipse Open VSX™" at its first and most prominent mentions, as the Eclipse Foundation asks); remove an attribution when the README no longer names the product. To go back, delete the section: it does not change the package or the action. The npm page shows the README of the latest published version, so a change there appears on npm with the next release.
+
 ## Pull requests
 
 Each change starts from an issue, and its pull request links to it. Describe what changes, what you checked, and update the [CHANGELOG](CHANGELOG.md) and the documentation that the change touches.
