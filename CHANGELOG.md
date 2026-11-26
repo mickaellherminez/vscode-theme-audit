@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 - A pilot protocol with the invitation sent to theme maintainers, four shared feedback questions, reproducible private reports, aggregation and decision criteria, and withdrawal instructions. It prepares feedback from 3 to 10 theme authors; it does not establish participant feedback or pilot results ([#19](https://github.com/mickaellherminez/vscode-theme-audit/issues/19)).
 - The README names its author and attributes the Microsoft, npm and Eclipse Open VSX trademarks it uses, in a `Trademarks` section after the license. Its first sentence names Visual Studio Code in full, and its first and most prominent mentions of Open VSX read "Eclipse Open VSX™" ([#39](https://github.com/mickaellherminez/vscode-theme-audit/issues/39)).
 - The README opens with the project banner, as the level 1 heading with alt text: a light and a dark version that follow the appearance of the operating system or browser, each on its own opaque background so that its text stays readable on any GitHub theme. The npm version badge stays below it, and the package contents do not change ([#40](https://github.com/mickaellherminez/vscode-theme-audit/issues/40)).
+- The README badges are centered below the banner: the npm version, and a new CI status for `main`. Both use the color `#0B7F7A`, so their text reaches 4.85:1 instead of 3.02:1 for the previous npm badge, and the CI status is given in words ([#44](https://github.com/mickaellherminez/vscode-theme-audit/issues/44)).
 
 ## [0.2.0] - 2026-11-24
 

@@ -315,6 +315,14 @@ import("./src/index.ts").then(({ contrast }) => {
 
 The README refers to the banners by relative paths, which GitHub resolves. The npm page shows the README of the latest published version: check after each release that it shows the banner, with a light and a dark appearance. If npm does not resolve the relative paths, use absolute URLs on the `main` branch instead (`https://raw.githubusercontent.com/mickaellherminez/vscode-theme-audit/main/.github/assets/...`). The npm pages of earlier versions then load the banners from `main` as well: renaming or removing the files also removes the banner from those pages. To remove the banner, replace the `<h1>` element with `# vscode-theme-audit` and delete the two files. The banners are not part of the npm package.
 
+Below the banner, a centered paragraph holds two badges from [shields.io](https://shields.io/): the npm version, linking to the npm page, and the status of the [CI workflow](.github/workflows/ci.yml) on `main`, linking to its runs. Both set `color=0B7F7A`, so their white text reaches 4.85:1 on the right part, and 7.46:1 on the `#555555` label; the default colors are below 4.5:1 (npm `#EA7233` 3.02:1, workflow status `#44BB00` about 2.5:1), and the native GitHub Actions badge cannot change its colors. With a fixed color, the CI badge says "passing" or "failing" in words: its meaning does not rely on color. To check a badge, download it and list its colors, then measure white on each of them with `contrast` as for the banners:
+
+```sh
+curl -sL 'https://img.shields.io/npm/v/vscode-theme-audit?color=0B7F7A' | grep -oE 'fill="#[0-9a-fA-F]{3,6}"' | sort -u
+```
+
+To remove a badge, delete its `<a>` element; to go back to the previous README, replace the paragraph with `[![npm version](https://img.shields.io/npm/v/vscode-theme-audit)](https://www.npmjs.com/package/vscode-theme-audit)`. If the CI workflow is renamed, update the file name in both the badge and its link.
+
 ## Pull requests
 
 Each change starts from an issue, and its pull request links to it. Describe what changes, what you checked, and update the [CHANGELOG](CHANGELOG.md) and the documentation that the change touches.
