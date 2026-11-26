@@ -298,7 +298,7 @@ The examples of the README and of `docs/` are real outputs of the command on the
 
 The last section of the README, `Trademarks`, names the author and attributes the trademarks of other owners that the README uses. When the README starts naming another product, add its attribution there, in the wording that its owner publishes, as a paragraph of its own, and follow any rule of that owner for the text itself (the README writes "Eclipse Open VSX™" at its first and most prominent mentions, as the Eclipse Foundation asks); remove an attribution when the README no longer names the product. To go back, delete the section: it does not change the package or the action. The npm page shows the README of the latest published version, so a change there appears on npm with the next release.
 
-The README opens with the project banner: a `<picture>` element inside the level 1 heading, so the alt text of the image is the heading. It shows `.github/assets/readme-banner-dark.svg` when the reader uses a dark theme, and `.github/assets/readme-banner-light.svg` otherwise. Both files have a transparent background, and their text is drawn as outlines: they contain no script, external reference or font. To replace a banner, keep its file name and check these three points, then measure its colors on the GitHub backgrounds, white `#FFFFFF` for the light banner and `#0D1117` for the dark one: at least 4.5:1 for the text, 3:1 for the logo shapes ([WCAG 1.4.3 and 1.4.11](https://www.w3.org/TR/WCAG22/#contrast-minimum)). From the root of the repository:
+The README opens with the project banner: a `<picture>` element inside the level 1 heading, so the alt text of the image is the heading. It shows `.github/assets/readme-banner-dark.svg` when the operating system or browser uses a dark appearance (`prefers-color-scheme: dark`), and `.github/assets/readme-banner-light.svg` otherwise. GitHub does not apply its own theme setting to this choice: a reader can see the light banner on a dark GitHub page, or the reverse. Each banner therefore has its own opaque background, the color of the matching GitHub background (white `#FFFFFF` for the light banner, `#0D1117` for the dark one), so its text stays readable whichever banner is shown; when the themes match, the background blends into the page. Their text is drawn as outlines: they contain no script, external reference or font. To replace a banner, keep its file name, its own background and these points, then measure its colors on that background: at least 4.5:1 for the text, 3:1 for the logo shapes ([WCAG 1.4.3 and 1.4.11](https://www.w3.org/TR/WCAG22/#contrast-minimum)). From the root of the repository:
 
 ```sh
 node -e '
@@ -307,12 +307,13 @@ import("./src/index.ts").then(({ contrast }) => {
   for (const [name, background] of [["light", "#FFFFFF"], ["dark", "#0D1117"]]) {
     const svg = readFileSync(`.github/assets/readme-banner-${name}.svg`, "utf8");
     const colors = new Set(Array.from(svg.matchAll(/fill="(#[0-9A-Fa-f]{6})"/g), (m) => m[1].toUpperCase()));
+    colors.delete(background);
     for (const color of colors) console.log(name, color, "on", background, contrast(color, background).toFixed(2));
   }
 });'
 ```
 
-The README refers to the banners by relative paths, which GitHub resolves. The npm page shows the README of the latest published version: check after each release that it shows the banner, in a light and a dark browser theme. If npm does not resolve the relative paths, use absolute URLs on the `main` branch instead (`https://raw.githubusercontent.com/mickaellherminez/vscode-theme-audit/main/.github/assets/...`). The npm pages of earlier versions then load the banners from `main` as well: renaming or removing the files also removes the banner from those pages. To remove the banner, replace the `<h1>` element with `# vscode-theme-audit` and delete the two files. The banners are not part of the npm package.
+The README refers to the banners by relative paths, which GitHub resolves. The npm page shows the README of the latest published version: check after each release that it shows the banner, with a light and a dark appearance. If npm does not resolve the relative paths, use absolute URLs on the `main` branch instead (`https://raw.githubusercontent.com/mickaellherminez/vscode-theme-audit/main/.github/assets/...`). The npm pages of earlier versions then load the banners from `main` as well: renaming or removing the files also removes the banner from those pages. To remove the banner, replace the `<h1>` element with `# vscode-theme-audit` and delete the two files. The banners are not part of the npm package.
 
 ## Pull requests
 
