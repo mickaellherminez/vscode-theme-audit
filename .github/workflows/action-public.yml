@@ -30,7 +30,7 @@ jobs:
 
       - name: Passing themes, in strict mode
         id: passing
-        uses: mickaellherminez/vscode-theme-audit@0f287bd6b42642f5c5f5d1c5e8c497630f695a57
+        uses: mickaellherminez/vscode-theme-audit@7994c95042c62874c81de6c42b21ded138d20f2f
         with:
           path: test/data/365
           strict: 'true'
@@ -38,7 +38,7 @@ jobs:
       - name: A failure with a visible exception
         id: failing
         continue-on-error: true
-        uses: mickaellherminez/vscode-theme-audit@0f287bd6b42642f5c5f5d1c5e8c497630f695a57
+        uses: mickaellherminez/vscode-theme-audit@7994c95042c62874c81de6c42b21ded138d20f2f
         with:
           path: test/data/oracle-extension/themes/dark.json
           config: test/data/action/config.json
@@ -46,7 +46,7 @@ jobs:
       - name: A configuration error
         id: error
         continue-on-error: true
-        uses: mickaellherminez/vscode-theme-audit@0f287bd6b42642f5c5f5d1c5e8c497630f695a57
+        uses: mickaellherminez/vscode-theme-audit@7994c95042c62874c81de6c42b21ded138d20f2f
         with:
           path: test/data/365
           config: missing-action-config.json
